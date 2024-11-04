@@ -1,14 +1,12 @@
 import express from "express";
+// import db from "./db/conn.mjs";
+import grades from "./routes/grades.mjs";
+import mongoose from "mongoose";
 
-import db from "./db/conn.mjs";
+dotenv.config();
 
 const PORT = 3000;
 const app = express();
-
-import grades from "./routes/grades.mjs";
-import grades_agg from "./routes/grades_agg.mjs";
-import stats from "./routes/stats.mjs";
-
 app.use(express.json());
 
 // app.get("/", (req, res) => {

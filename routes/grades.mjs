@@ -33,7 +33,6 @@ const Grades = mongoose.model('Grades', gradesSchema);
 export default Grades;
 
 
-
 // import db from "../db/conn.mjs";
 // import { ObjectId } from "mongodb";
 
