@@ -6,7 +6,7 @@ const router = express.Router();
 
 // Create a single grade entry
 router.post("/", async (req, res) => {
-  let collection = await db.collection("grades");
+  let Grades = await Grades.find();
   let newDocument = req.body;
 
   // rename fields for backwards compatibility
@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
     delete newDocument.student_id;
   }
 
-  let result = await collection.insertOne(newDocument);
+  let result = await Grades.create(newDocument);
   res.send(result).status(204);
 });
 
@@ -24,7 +24,7 @@ router.get("/:id", async (req, res) => {
   console.log(req.params.id);
   let collection = await db.collection("grades");
   let query = { _id: ObjectId(req.params.id) };
-  let result = await collection.findOne(query);
+  let result = await Grades.findOne(query);
   if (!result) res.send("Not found").status(404);
   else res.send(result).status(200);
 });
@@ -34,7 +34,7 @@ router.patch("/:id/add", async (req, res) => {
   let collection = await db.collection("grades");
   let query = { _id: ObjectId(req.params.id) };
 
-  let result = await collection.updateOne(query, {
+  let result = await Grades.updateOne(query, {
     $push: { scores: req.body },
   });
 
@@ -47,7 +47,7 @@ router.patch("/:id/remove", async (req, res) => {
   let collection = await db.collection("grades");
   let query = { _id: ObjectId(req.params.id) };
 
-  let result = await collection.updateOne(query, {
+  let result = await Grades.updateOne(query, {
     $pull: { scores: req.body },
   });
 
@@ -59,7 +59,7 @@ router.patch("/:id/remove", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   let collection = await db.collection("grades");
   let query = { _id: ObjectId(req.params.id) };
-  let result = await collection.deleteOne(query);
+  let result = await Grades.deleteOne(query);
 
   if (!result) res.send("Not found").status(404);
   else res.send(result).status(200);
@@ -78,7 +78,7 @@ router.get("/learner/:id", async (req, res) => {
   // Check for class_id parameter
   if (req.query.class) query.class_id = Number(req.query.class);
 
-  let result = await collection.find(query).toArray();
+  let result = await Grades.find(query);
 
   if (!result) res.send("Not found").status(404);
   else res.send(result).status(200);
