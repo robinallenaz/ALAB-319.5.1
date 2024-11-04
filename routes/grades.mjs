@@ -1,4 +1,5 @@
-// import express from "express";
+import express from "express";
+import "dotenv/config";
 //Importing mongoose
 import mongoose from 'mongoose';
 
