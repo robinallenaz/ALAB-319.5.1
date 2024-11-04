@@ -4,14 +4,35 @@ import "dotenv/config";
 import mongoose from 'mongoose';
 
 const gradesSchema = new mongoose.Schema({
-  // Define the schema for the grades collection
-  student_id: String,
-  scores: [{ type: Number }]
-});
+  learner_id: {
+    type: Number,
+    min: 0,
+    message: "must be an integer greater than or equal to 0 and is required",
+    required: true
+  },
+  class_id: {
+    type: Number,
+    min: 0,
+    max: 300,
+    message: "must be an integer between 0 and 300 and is required",
+    required: true
+  } 
+}, { versionKey: false }) // Disables the __v field ;
+
+// single field index on class_id
+gradesSchema.index({class_id: 1})
+
+// single field index on learner_id
+gradesSchema.index({learner_id: 1})
+
+// compound index on class_id and learner_id
+gradesSchema.index({class_id: 1, learner_id: 1})
 
 const Grades = mongoose.model('Grades', gradesSchema);
 
 export default Grades;
+
+
 
 // import db from "../db/conn.mjs";
 // import { ObjectId } from "mongodb";
