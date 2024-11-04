@@ -1,7 +1,8 @@
 import express from "express";
-import "dotenv/config";
-//Importing mongoose
-import mongoose from 'mongoose';
+import { ObjectId } from "mongodb";
+import Grade from "../models/Grade.mjs";
+
+const router = express.Router();
 
 const gradesSchema = new mongoose.Schema({
   learner_id: {
@@ -36,7 +37,7 @@ export default Grades;
 // import db from "../db/conn.mjs";
 // import { ObjectId } from "mongodb";
 
-const router = express.Router();
+// const router = express.Router();
 
 // Create a single grade entry
 // router.post("/", async (req, res) => {
