@@ -1,6 +1,6 @@
 import express from "express";
 // import db from "./db/conn.mjs";
-import grades from "./routes/grades.mjs";
+import grades from "./model/grades.mjs";
 import mongoose from "mongoose";
 
 dotenv.config();
